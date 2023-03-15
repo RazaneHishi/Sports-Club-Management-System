@@ -1,0 +1,197 @@
+body{
+    background-image: url('images/bg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+/*NAVIGATION BAR/HEADER*/
+.navbar{
+    box-shadow: 0 0.3rem 0.4rem 4px rgb(0 0 0 / 25%);
+    border: 0;
+    margin: 0;
+    min-height:100%;
+ 
+ }
+ .navbar-fixed-footer{
+     position:fixed;
+     margin-bottom:0; 
+ 
+ }
+ .bringToFrontDiv{
+     background: rgba(219, 223, 230, 0.2);
+     border-radius: 0;
+ }
+ 
+ .separator{
+     background-color: white;
+     height: 2px;
+     box-shadow: 0 0.3rem 0.4rem 0px rgb(0 0 0 / 25%);
+ }
+.navbar-fixed-footer{
+    position:fixed;
+    margin-bottom:0; 
+
+}
+.bringToFrontDiv{
+    background: rgba(219, 223, 230, 0.2);
+    border-radius: 0;
+}
+
+.separator{
+    background-color: white;
+    height: 2px;
+    box-shadow: 0 0.3rem 0.4rem 0px rgb(0 0 0 / 25%);
+}
+
+.descriptive, .descriptiveImage{
+    border-radius: 10px;
+    /*BORDERS FOR DIVS*/
+    border-color: white; 
+    border-width: 0px;
+    border-style: solid;
+    margin:1%;
+}
+.descriptive{
+    width: 50%;
+    text-align: left;
+    /*padding-top: 0;
+    padding-right: 0%;
+    padding-left: 2%;*/
+    display: flex;
+    border-width: 2px;
+
+}
+.descriptionRibbon{
+    overflow:hidden;
+}
+.descriptionRibbon img{
+    width:100%;
+    height:100%;
+    margin-top: -20%;
+    margin-right:30rem;
+}
+
+div.descriptive, div.content h2,h3,h4,p{
+    color: white;
+}
+
+.description{
+    margin:10%;
+    margin-right:0;
+    width: 150%;
+    height:400%
+}
+.descriptiveImage{
+    width:220px;
+    border-radius: 10px;
+    margin-right: 0px;
+    margin-left:1%;
+    justify-content: stretch;
+    overflow: hidden;
+}
+
+div.descriptiveImage img {
+    width: 100%;
+    height:100%;
+    position: center;
+    /*version 1 */ 
+    border-radius: 0;
+}
+
+.honorRow{
+    display:flex;
+    height:250px;
+    justify-content: center;
+    
+}
+.honorsAll{
+    display:flex;
+    flex-direction: column;
+    column-gap:20px; 
+    margin:2%;
+}
+
+.editButton{
+    width:50%; 
+    height: 50%;
+    margin-top:12.5%;
+}
+.editButton button{
+    width:50%; 
+    height: 50%;
+
+ }
+
+ .article-content{
+     background-color: rgb(55, 73, 105);
+     margin-right: 5%;
+     margin-left:5%;
+}
+
+.article-content img{
+   width:100%;
+   height:50%;
+}
+.content{
+    margin-right:5%;
+    margin-left:5%;
+    display: flex;
+    flex-direction: column;
+}
+.content h2{
+    font-weight: bold;
+}
+.article-space{
+    display: flex;
+    flex-direction: row;
+}
+.text{
+    text-align: left;
+    text-align:justify;
+}
+.article-space{
+    display:flex;
+    flex-direction: row;
+    column-gap:5rem;
+}
+div.content article{
+    color: white;
+}
+.image-inline-text{
+}
+
+.featuredArticles{
+    display:flex;
+    text-align: center;
+    background-color:grey;
+    justify-content: space-between;
+    padding-right:5rem;
+    padding-left:5rem;
+}
+.articles{
+    width:100%;
+    height:100%;
+    border-radius: 4%;
+    background-color:grey; /*REMOVE LATER*/
+}
+.articles img{
+    width:100%;
+    height:100%;
+    border-radius: 4%;
+    justify-content: stretch;
+    overflow: hidden;
+   
+}
+.games{
+    height:20rem; 
+    /*margin:5rem;*/
+
+}
+.myCarousel.games{
+    margin-top:5rem;
+}
+.item.games{
+    background: rgba(219, 223, 230, 0.2);
+}

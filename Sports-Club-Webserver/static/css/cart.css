@@ -1,0 +1,423 @@
+body{
+    background-image: url('images/bg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+   
+}
+
+.my-container{
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+    min-height: 100vh;
+    min-width:100vh;
+}
+
+.navbar{
+    box-shadow: 0 0.3rem 0.4rem 4px rgb(0 0 0 / 25%);
+    margin: 0;
+    border: 0;
+    min-height:100%;
+ 
+ }
+ .navbar-fixed-footer{
+     position:fixed;
+     margin-bottom:0; 
+ 
+ }
+ .bringToFrontDiv{
+     background: rgba(219, 223, 230, 0.2);
+     border-radius: 0;
+ }
+
+.div-footer{
+    background: rgba(219, 223, 230, 0.2);
+
+}
+.navbar{
+   box-shadow: 0 0.3rem 0.4rem 4px rgb(0 0 0 / 25%);
+   margin: 0;
+   border: 0;
+
+}
+.navbar-fixed-footer{
+    position:fixed;
+    margin-bottom:0; 
+
+}
+.bringToFrontDiv{
+    background: rgba(219, 223, 230, 0.2);
+    border-radius: 0;
+}
+
+.separator{
+    background-color: white;
+    height: 2px;
+    box-shadow: 0 0.3rem 0.4rem 0px rgb(0 0 0 / 25%);
+}
+
+.editButton{
+    width:50%; 
+    height: 50%;
+    margin-top:12.5%;
+}
+.editButton button{
+    width:50%; 
+    height: 50%;
+
+ }
+
+ .quantity{
+     width:50%;
+ }
+
+/*CART TESTING BLOCKS 
+.cart-div{
+    display:flex;
+    flex-direction: row;
+    column-gap:5rem;
+    justify-content: space-between;
+    height:50rem;
+    margin:5rem;
+    width:auto;
+    background-color: red;
+    justify-self: center;
+}
+
+
+.table-shopping-cart{
+    background-color:greenyellow;
+    justify-self: flex-start;
+    width:80rem;
+}
+
+.sidebar{
+    background-color:violet;
+    width:40rem;
+}
+
+.product-in-cart{
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5em;
+    justify-content: space-around;
+}
+.product-in-cart img{
+    width: 20em;
+    height:15em;
+}
+.product-details{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    justify-content: space-around;
+}
+*/
+
+/*  VIEWING CART*/
+
+.my-2-container{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width:90%;
+    margin: auto;
+    padding: 0;
+    border-radius: 20px;
+}
+.my-cart-container{
+    width: 80%;
+    height: 85%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    box-shadow: 0 0 10em 1em rgba(219, 223, 230, 0.2);
+    padding:2rem;
+    margin:5rem;
+
+}
+
+.my-header-cart{
+    margin: auto;
+    width: 90%;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.my-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family:'Courier New', Courier, monospace;
+    flex-direction: column;
+}
+.hr-mod{
+    width:100%;
+    margin:auto;
+    margin-bottom:1em;
+}
+.my-heading{
+    color:hsl(216, 25%, 38%);
+    font-family:'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2F3841;
+}
+.my-action{
+    font-size: 14px;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: 600;
+    color: #E44C4C;
+    cursor: pointer;
+    border-bottom: 1px solid #E44C4C;
+}
+.my-cart-items, .my-cart-tickets{
+    margin: auto;
+    width: 90%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.my-image-box{
+    width:15%;
+    text-align:center;
+}
+.my-product-image{
+    height:120px;
+}
+.my-about{
+    height:100%;
+}
+.my-about, h1,h3,h5{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    color:hsl(216, 25%, 38%);
+
+
+
+}
+.my-title{
+    padding-top: 5%;
+    line-height: 10px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:800;
+    color:hsl(216, 25%, 38%);
+}
+.my-subtitle{ 
+    line-height: 10px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:600;
+    color:hsl(216, 25%, 38%);
+}    
+
+.my-counter{
+    width:15%;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.my-btn{
+    width: 30px;
+    height:30px;
+    border-radius:50%;
+    background: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-size:20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:900;
+    color:hsl(216, 25%, 38%);
+    cursor:pointer;
+}
+.my-money{
+    display: flex;
+    column-gap: 1em;
+    font-size:15px;
+
+}
+.my-money-one{
+    padding-top:20px;
+    font-size:16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:800;
+    color:hsl(216, 25%, 38%);
+    
+}
+
+.my-mods{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5;
+
+}
+
+.my-save{
+    padding-top:5px;
+    font-size:14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:600;
+    color:#1687d9;
+    cursor:pointer;
+
+}
+.my-remove{
+    padding-top:5px;
+    font-size:14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:600;
+    color: #e44C4C;
+    cursor:pointer;
+}
+hr{
+    width:66%;
+    float:right;
+    margin-right:5%;
+}
+.my-checkout{
+    width:90%;
+    float:right;
+    margin-right:auto;
+    display: flex;
+    flex-direction:column; 
+
+}
+.my-total{
+    width:80%;
+    display: flex;
+    flex-direction:row;
+    column-gap: 2em;
+    margin-left:auto;
+    margin-right:3em;
+
+}
+.my-side-sub{
+    display: flex;
+    justify-content:center;
+    flex-direction:column;
+    row-gap: 0.5em;
+    margin-left:auto;
+    margin-bottom:1em;
+}
+.my-subtotal{
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    color:hsl(216, 25%, 38%);
+
+}
+.my-items{
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    color:#909090;
+    line-height:10px;
+    
+}
+    
+.my-total-amount{
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color:hsl(216, 25%, 38%);
+
+}
+.my-many-buttons{
+    margin-top:2em;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.my-button{
+    margin-top:5px;
+    height:40px;
+    border:none;
+    background:linear-gradient(to bottom right,hsl(234,22%,18%),hsl(216, 25%, 38%));
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color:white;
+    width:90%;
+    margin-right:15em;
+
+}
+.my-button2{
+    margin-top:5px;
+    height:20px;
+    border:none;
+    background:linear-gradient(to bottom right,hsl(234,22%,18%),hsl(216, 25%, 38%));
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color:white;
+    width:30%;
+    margin-right:15em;
+
+}
+
+
+.my-continue{
+    background: white;
+    color:hsl(234,22%,18%);
+    text-decoration:underline ;
+    width:100%;
+    margin-right:auto;
+}
+.my-checkout-form{
+    display:flex;
+    flex-direction: row;
+    column-gap:5em;
+}
+.shipping-form-div{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shipping-form-div form{
+    display:flex;
+    flex-direction: column;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+.shipping-form-div input,textarea{
+    border-radius: 7rem;
+    border-width:1px;
+    border-style:solid;
+    border-color: rgba(168, 168, 168, 0.463);
+    height:3rem;
+    margin-bottom:1rem;
+}
+.shipping-form-div textarea{
+    height:3em;
+}
+.submit{
+    margin-top:1em;
+    margin-bottom: 1em;
+    border-radius: 7rem;
+    border:none;
+    background:linear-gradient(to bottom right,hsl(234,22%,18%),hsl(216, 25%, 38%));
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color:white;
+}
+.cancel{
+    margin-top:1em;
+    margin-bottom: 1em;
+    border-radius: 7rem;
+}
