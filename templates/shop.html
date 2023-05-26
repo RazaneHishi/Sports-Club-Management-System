@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+    
+        <link
+          href="{{ url_for('static', filename='css/shop.css') }}"
+          rel="stylesheet"
+          type="text/css"
+        />
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+        <title>Shop</title>
+      </head>
+      <body>
+       
+        <div>
+          <nav class="navbar navbar-inverse bringToFrontDiv">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="/">Cougars</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li ><a href="/">Home</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                    >Teams <span class="caret"></span
+                  ></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/teams/womenfb">Women Football</a></li>
+                    <li><a href="/teams/menfb">Men Football</a></li>
+                    <li><a href="/teams/womenbb">Women Basketball</a></li>
+                    <li><a href="/teams/menbb">Men Basketball</a></li>
+                  </ul>
+                </li>
+                <li><a href="/fixtures">Fixtures</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/tickets">Tickets</a></li>
+                <li class="active"><a href="/shop">Shop</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/honorsfb">Honors</a></li>
+              </ul>
+                 <!-- <form class="navbar-form navbar-right" action="/action_page.php">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>-->
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                    {%if user is none%}
+                    <a href="/login">
+                    <span class="glyphicon glyphicon-user"></span> Profile</a>
+                    {%else%}
+                    <a href="/">
+                    <span class="glyphicon glyphicon-user"></span> {{user}}</a>
+                    {%endif%}
+    
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+    <div class="container-fluid">
+
+
+      <!--ADDED MODALS -->
+      {% if 'ADMIN' in role%}
+      <div class="adminAll"> 
+        <div class="add-row">
+      <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+        <input type="hidden" name="addbut" value="5">
+        <button id="add-button" type="button" class="btn btn-xs" data-toggle="modal" data-target="#addModal">ADD</button>
+      <!-- </form> -->
+        </div>
+        <div class="delete-row">
+        <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+          <input type="hidden" name="deletebut" value="5">
+          <button id="delete-button" type="button" class="btn btn-xs" data-toggle="modal" data-target="#deleteModal">DELETE</button>
+        <!-- </form> -->
+        </div>
+        <div class="edit-row">
+          <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+            <input type="hidden" name="editbut" value="5">
+            <button id="edit-button" type="button" class="btn btn-xs" data-toggle="modal" data-target="#editModal">EDIT</button>
+          <!-- </form> -->
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="row">
+        <form action="/cart" method="POST" autocomplete="off">
+        <button class="cart_button">
+          <img class="cart_img" src="{{url_for('static', filename='css/images/shop/shopping-cart.png')}}"/>
+        </button>
+      </form>
+      </div>
+      <!--FOR MILIA, CONDITIONAL-->
+      {%set len=items|length%}
+      {%for j in range (0,len,4)%}      
+      <div class="row">
+        {%for i in range(0,4)%}
+        {%if (len > (i+j))%}
+        <div class="col-md-3 small">
+            <div class="wrapper">
+              <img class="product" src="{{url_for('static', filename='css/images/teams/jersey.PNG')}}" class="center"/>
+              <div class="item_detail">{{items[i+j][3]}}</div>
+              <div class="item_detail">{{items[i+j][2]}}$</div>
+              {% if 'ADMIN' in role%}
+              <div class="item_detail">item id: {{items[i+j][0]}}</div>
+              {%endif%}
+                <form action="/shop" method="POST" autocomplete="off">
+                <input type="hidden" name="itemid" value="{{items[i+j][0]}}">
+                <input type="hidden" name="addcartbut" value=1>
+                <button id="addCart-button" class="btn-xs" type="submit">Add To Cart</button>
+              </form>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+      </div>
+      {%endfor%}
+
+  <!--EDIT MODAL-->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 class="modal-title" id="editModalLabel">Edit Shop Items</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <form action="/shop/editItem" id="editForm" method="POST">
+                <h>ID of Item</h>     
+                  <select name="item_id">
+                    {%for item in items%}
+                    <option value={{item[0]}}>{{item[0]}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label>Name:</label>
+                <input type="text" name="itemNameEdit" id="itemNameEdit" required/><br>
+                <label>Price:</label>
+                <input type="number" name="itemPriceEdit" id="itemPriceEdit" min="1" required/><br>
+                <label>Number in Stock:</label>
+                <input type="number" name="itemStockEdit" id="itemStockEdit" min="0"required/><br>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="editForm"class="btn btn-primary submit">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--END OF EDIT MODAL-->
+
+  <!--ADD MODAL-->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 class="modal-title" id="editModalLabel">Add Item</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <form action="/shop/additem" id="addForm" method="POST" autocomplete="off">
+                  <label>Name:</label>
+                  <input type="text" name="itemNameAdd" id="itemNameAdd" required/><br>
+                  <label>Price:</label>
+                  <input type="number" name="itemPriceAdd" id="itemPriceAdd" min="1" required/><br>
+                  <label>Number in Stock:</label>
+                  <input type="number" name="itemStockAdd" id="itemStockAdd" min="0"required/><br>
+                </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" form="addForm" class="btn btn-primary submit">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--END OF ADD MODAL-->
+
+  <!--DELETE MODAL-->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h2 class="modal-title" id="editModalLabel">Delete Item</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form action="/shop/deleteItem" id="deleteItem" method="POST" autocomplete="off">
+                    <label>Item ID:</label>
+                    <select name="itemidRemove">
+                      {%for item in items%}
+                      <option value={{item[0]}}>{{item[0]}}</option>
+                      {%endfor%}
+                    </select>
+                  </form>
+                </select>
+                <br>
+                
+                </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" form="deleteItem"class="btn btn-primary submit">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--END OF DELETE MODAL-->
+
+
+
+
+
+      <!-- Footer -->
+      <div class="footer-footer">
+        <footer class="page-footer " class="navbar-fixed-footer">
+      <!-- Copyright -->
+      <div
+        class="footer-copyright text-center py-3"
+        class="navbar-fixed-bottom"
+        style="background-color: black; color: white;"
+      >
+        © 2020 Copyright:
+        <a> WebsiteName</a>
+      </div>
+      <!-- Copyright -->
+        </footer>
+       </div>
+      <!-- Footer -->
+      
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

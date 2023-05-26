@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="../static/css/community.css" rel="stylesheet" type="text/css"/>
+
+    <title>Community</title>
+  </head>
+  <body>
+    <div>
+    <nav class="navbar navbar-inverse bringToFrontDiv">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Cougars</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li ><a href="/">Home</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+              >Teams <span class="caret"></span
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teams/womenfb">Women Football</a></li>
+              <li><a href="/teams/menfb">Men Football</a></li>
+              <li><a href="/teams/womenbb">Women Basketball</a></li>
+              <li><a href="/teams/menbb">Men Basketball</a></li>
+            </ul>
+          </li>
+          <li><a href="/fixtures">Fixtures</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/tickets">Tickets</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li class="active"><a href="#">Community</a></li>
+          <li><a href="/honorsfb">Honors</a></li>
+        </ul>
+          <!-- <form class="navbar-form navbar-right" action="/action_page.php">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>-->
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            {%if user is none%}
+              <a href="/login">
+                <span class="glyphicon glyphicon-user"></span> Profile</a
+              >
+              {%else%}
+              <a href="/profile">
+                <span class="glyphicon glyphicon-user"></span> {{user}}</a
+              >
+              {%endif%}
+       
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- end of nav -->
+    <h2 class="text-center fw-bolder fan" >
+        FAN CLUB
+     <h4 class="">
+        <img class="center-block" src="../static/css/images/field.jpeg" width="1000px" height="250px"> 
+        <hr size="5px" class="link-light" width="80%"> 
+      </h2>
+      <div class="container">
+        <div class="row">
+          
+          
+          <div class="col-md-8">
+            <h2 class="fw-bolder square text-center ">
+              </span>Discussion post<span>
+              <div class="form-field d-flex align-items-center h5 width=100px">
+                <span class="far fa-user"></span>
+                {%for post in posts%}
+                <h5>
+                  <span>{{post[0]}}: {{post[2]}} | ON {{post[1]}} </span>
+                </h5>
+                
+                {%endfor%}
+                <br>
+              <form action="/community/addPost" method="POST" autocomplete="off">
+                <input
+                type="text"
+                name="body"
+                id="Post"
+                placeholder="Comment..."
+                autocomplete="off"
+                required
+              />
+                <button id="submit-button" class="button btn btn-default btn-xs" type="submit">submit</button>
+              </form>
+                
+              </div>
+              {% if 'ADMIN' in role%}
+            <form action="community/clearPosts">
+            <button type="submit" class="btn-xs">Clear Forum</button>
+          </form>
+          {%endif%}
+            </h2>
+           
+          <div class="col-md-4">
+            <h2 class="vote text-center">Submit Feedback</h2>
+            <div class="rectangle2">
+              <form class="feedback" action="https://formsubmit.co/430group4@gmail.com" method="POST">
+                <label for="fullName">Your Name</label> <br>
+                <input type="text" name="fullName" required><br><br>
+                <label for="gender">Your Gender</label> <br>
+                <input type="radio" name="gender" value="male" required>Male<br>
+                <input type="radio" name="gender" value="female" required>Female<br><br>
+                <label for="email">Your E-mail</label> <br>
+                <input type="text" name="email" required><br>
+                <br>
+                <label for="comments">Your Comments</label> <br>
+                <textarea name="comments" required></textarea><br><br>
+                <button type="submit" class="btn-xs">Send</button>
+                <!--<button type="reset" class="btn-xs">Clear</button>!-->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="http://localhost:5000/community">
+            </form>
+            </div>
+          </div>
+        
+          </div>
+        </div>
+      
+    
+        
+        
+
+
+      <!-- Footer -->
+      <div class="footer-footer">
+        <footer class="page-footer " class="navbar-fixed-footer">
+      <!-- Copyright -->
+      <div
+        class="footer-copyright text-center py-3"
+        class="navbar-fixed-bottom"
+        style="background-color: black; color: white;"
+      >
+        © 2020 Copyright:
+        <a> WebsiteName</a>
+      </div>
+      <!-- Copyright -->
+        </footer>
+       </div>
+      <!-- Footer -->
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

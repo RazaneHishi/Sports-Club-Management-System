@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      href="{{ url_for('static', filename='css/cart.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}" async></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Your Shopping Cart</title>
+  </head>
+  <body>
+    <div class="my-container">
+      <!--HEADER-->
+
+      <nav class="navbar navbar-inverse bringToFrontDiv">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Cougars</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                >Teams <span class="caret"></span
+              ></a>
+              <ul class="dropdown-menu">
+                <li><a href="/teams/womenfb">Women Football</a></li>
+                <li><a href="/teams/menfb">Men Football</a></li>
+                <li><a href="/teams/womenbb">Women Basketball</a></li>
+                <li><a href="/teams/menbb">Men Basketball</a></li>
+              </ul>
+            </li>
+            <li><a href="/fixtures">Fixtures</a></li>
+            <li><a href="/news">News</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            <li class="active"><a href="/shop">Shop</a></li>
+            <li><a href="/community">Community</a></li>
+            <li><a href="/honorsfb">Honors</a></li>
+          </ul>
+            <!-- <form class="navbar-form navbar-right" action="/action_page.php">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>-->
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              {%if user is none%}
+              <a href="/login">
+                <span class="glyphicon glyphicon-user"> Profile</span>
+              </a>
+              {%else%}
+              <a href="/profile">
+                <span class="glyphicon glyphicon-user"></span> {{user}}</a
+              >
+              {%endif%}
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!--END OF HEADER-->
+
+      <div class="my-2-container" id="my-2-container">
+        <div class="my-cart-container">
+          <div class="my-header-cart">
+            <h3 class="my-heading">Shopping Cart</h3> 
+          </div>
+
+         {%for shopitem in shopitems%}
+          <div class="my-cart-items">
+            <div class=”my-image-box”>
+              <!--FOR MILIA: fill in product image-->
+              <img class="my-product-image"src="{{url_for('static', filename='css/images/news/testimage.jpg')}}"/> 
+            </div>
+            <div class=”my-about”>
+                <!--FOR MILIA:fill in product name, size,and price of 1 unit-->
+              <h3 class=”my-title” style="margin-right:10px">{{shopitem[3]}}</h3>
+            </div>
+            <div class="my-counter">
+              <!--FOR MILIA: functionality to increase quantity-->
+              <!--FOR MILIA: we can delete this and use a drop down list if that's easier to implement-->
+              <form action="/cart/update" method="POST" autocomplete="off">
+                <input type="hidden" name="quantityitemid" value={{shopitem[0]}}>            
+                <input type="number" min="1" value="{{shopitem[4]}}" class="quantity" id="quantity" name="{{shopitem[0]}}quantity"></input>     
+            </div> 
+              <!--FOR MILIA: fill price with functionality to calculate price based on quantity-->
+            <div class="my-money">
+              <div class="my-money-one">{{shopitem[2]}} $ Price/Unit</div>
+              <div class="my-mods">
+                <button class="my-button2" type="submit">UPDATE ITEM COUNT</button>    
+              </form>
+              
+              </div>
+           
+            </div>
+          </div>
+
+          <hr>
+          {%endfor%}
+          <!--FOR MILIA: end the for loop here-->
+
+          <!--FOR MILIA: You need to have an if statement where this only generates if tickets were added to cart to begin with-->
+          <div class="my-header-cart">
+            <h3 class="my-heading">Tickets Cart</h3>
+          </div>
+          {%for ticketitem in ticketitems%}
+          <!--FOR MILIA: place a for loop here for items in cart-->
+          <div class="my-cart-tickets">
+            <div class=”my-image-box”>
+              <!--FOR MILIA: fill in product image-->
+              <img class="my-product-image"src="{{url_for('static', filename='css/images/news/testimage.jpg')}}"/> 
+            </div>
+            <div class=”my-about”>
+                <!--FOR MILIA:fill in product name, size,and price of 1 unit-->
+              <h3 class=”my-title”>Ticket HOME vs {{ticketitem[1]}}</h3>
+              <h3 class=”my-subtitle”>Arena: {{ticketitem[3]}}</h3>
+              <h3 class=”my-subtitle”>Date: {{ticketitem[2]}}</h3>
+
+            </div>
+            <div class="my-counter">
+              <!--FOR MILIA: functionality to increase quantity-->
+              <!--FOR MILIA: we can delete this and use a drop down list if that's easier to implement-->
+              <form action="/cart/update" method="POST" autocomplete="off">
+                <input type="hidden" name="quantityitemid" value={{ticketitem[0]}}>
+                <input type="number" min="1" value={{ticketitem[6]}} class="quantity" name="{{ticketitem[0]}}quantity"></input>
+            
+            </div> 
+              <!--FOR MILIA: fill price with functionality to calculate price based on quantity-->
+              <div class="my-money">
+                <div class="my-money-one">{{ticketitem[4]}} $Price/unit</div>
+                <div class="my-mods">
+                  <button class="my-button2" type="submit">UPDATE ITEM COUNT</button>
+                </form>
+                </div>
+              </div>
+          </div>
+
+          <hr>
+          <!--FOR MILIA: end the for loop here-->
+          {%endfor%}
+
+          <!--FOR MILIA: Stop deleting. Don't delete the lines below-->
+          <div class="my-checkout">
+            <div class="my-total">
+              <div class="my-side-sub">
+                <div class="my-subtotal">Sub-Total</div>
+                <!--FOR MILIA: fill number of items in cart-->
+                <div class="my-items">{{cartitems | length}} items    </div>
+              </div>
+                <!--FOR MILIA: fill total-->
+              <div class="my-total-amount">${{total}}</div>
+            </div>
+            <div class="my-total">
+              <div class="my-side-sub">
+                <div class="my-subtotal">Shipping</div>
+                <!--FOR MILIA: fill number of items in cart-->
+                <div class="my-items">in USD</div>
+              </div>
+                <!--FOR MILIA: fill total-->
+              <div class="my-total-amount">$2</div>
+            </div>
+            <hr>
+            <div class="my-total">
+              <div class="my-side-sub">
+                <div class="my-subtotal">Total</div>
+                <!--FOR MILIA: fill number of items in cart-->
+                <div class="my-items">in USD</div>
+              </div>
+                <!--FOR MILIA: fill total-->
+              <div class="my-total-amount">${{total+2}}</div>
+            </div>
+            <div class="my-many-buttons">
+              <form action="/cart/RemoveAll" method="POST" autocomplete="off">
+                <button class="my-action">Remove all</button> <!--FOR MILIA: functionality to delete all in cart-->
+                </form>
+              <form action="/shop" method="POST" autocomplete="off">
+                <button class="my-button my-continue">Continue Shopping</button>
+              </form>
+              <form action="/cart/checkout" method="POST" autocomplete="off">
+                <button class="my-button">Checkout</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      
+
+
+
+
+      <!-- Footer -->
+      <footer class="page-footer font-small blue">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+          © 2020 Copyright:
+          <a href="/"> MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      href="{{ url_for('static', filename='css/tickets.css') }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Team name</title>
+  </head>
+  <body>
+    <!--START OF HEADER-->
+    <nav class="navbar navbar-inverse bringToFrontDiv">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Cougars</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+              >Teams <span class="caret"></span
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="/teams/womenfb">Women Football</a></li>
+              <li><a href="/teams/menfb">Men Football</a></li>
+              <li><a href="/teams/womenbb">Women Basketball</a></li>
+              <li><a href="/teams/menbb">Men Basketball</a></li>
+            </ul>
+          </li>
+          <li><a href="/fixtures">Fixtures</a></li>
+          <li><a href="/news">News</a></li>
+          <li class="active"><a href="#">Tickets</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/community">Community</a></li>
+          <li><a href="/honorsfb">Honors</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" action="/action_page.php">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            {%if user is none%}
+            <a href="/login">
+              <span class="glyphicon glyphicon-user"></span> Profile</a
+            >
+            {%else%}
+            <a href="/">
+              <span class="glyphicon glyphicon-user"></span> {{user}}</a
+            >
+            {%endif%}
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!--END OF HEADER-->
+
+    {% if 'ADMIN' in role%}
+    <div class="adminAll">
+      <div class="add-row">
+        <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+        <input type="hidden" name="addbut" value="5" />
+        <button
+          id="add-button"
+          type="button"
+          class="btn btn-xs"
+          data-toggle="modal"
+          data-target="#addModal"
+        >
+          ADD
+        </button>
+        <!-- </form> -->
+      </div>
+      <div class="delete-row">
+        <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+        <input type="hidden" name="deletebut" value="5" />
+        <button
+          id="delete-button"
+          type="button"
+          class="btn btn-xs"
+          data-toggle="modal"
+          data-target="#deleteModal"
+        >
+          DELETE
+        </button>
+        <!-- </form> -->
+      </div>
+      <div class="edit-row">
+        <!--<form action="/honorsfb" method="POST" autocomplete="off">-->
+        <input type="hidden" name="editbut" value="5" />
+        <button
+          id="edit-button"
+          type="button"
+          class="btn btn-xs"
+          data-toggle="modal"
+          data-target="#editModal"
+        >
+          EDIT
+        </button>
+        <!-- </form> -->
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+      <form action="/cart" method="POST" autocomplete="off">
+        <button class="cart_button">
+          <img
+            class="cart_img"
+            src="{{url_for('static', filename='css/images/shop/shopping-cart.png')}}"
+          />
+        </button>
+      </form>
+    </div>
+
+    <!--CONTENTS-->
+    <div class="content">
+      <div class="title">
+        <h3>Upcoming Games</h3>
+      </div>
+
+      <!--START GAMES' ROWS-->
+      <div class="gamesAll">
+        <!-- HONOR ROW  VERSION 1-->
+        {%for ticket in tickets%}
+        <div class="gameRow">
+          <div class="bringToFrontDiv descriptiveImage">
+            <img
+              src="{{url_for('static', filename='css/images/tickets/game.png')}}"
+              alt=""
+            />
+            <!--THEY CAN EDIT THESE-->
+          </div>
+          <div class="bringToFrontDiv descriptive">
+            <div class="description">
+              <h4>Home VS {{ticket[1]}}</h4>
+              <!--THEY CAN EDIT THESE-->
+              <h4>{{ticket[2]}}</h4>
+              <h4>{{ticket[3]}}</h4>
+              <!--THEY CAN EDIT THESE-->
+              <h4>{{ticket[4]}} $</h4>
+              <form action="/tickets" method="POST" autocomplete="off">
+                <input type="hidden" name="ticketid" value="{{ticket[0]}}" />
+                <input type="hidden" name="addticketcartbut" value="2" />
+                <button id="addTicketCart-button" class="btn-xs" type="submit">
+                  Add To Cart
+                </button>
+              </form>
+              {% if 'ADMIN' in role%}
+              <h4>Ticket id: {{ticket[0]}}</h4>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+      <!--END GAMES' ROWS-->
+    </div>
+    <!--END OF CONTENTS-->
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">
+        © 2020 Copyright:
+        <a href="/"> MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    <!--EDIT MODAL-->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="editModalLabel">Edit Ticket</h2>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/tickets/editTicket" id="editForm" method="POST">
+              <h>ID of Ticket</h>
+              <select name="ticketid">
+                {%for ticket in tickets%}
+                <option value="{{ticket[0]}}">{{ticket[0]}}</option>
+                {% endfor %}
+              </select>
+              <br />
+              <label>Opposing Team:</label>
+              <input
+                type="text"
+                name="oppTeamEdit"
+                id="oppTeamEdit"
+                required
+              /><br />
+              <label>Game Time:</label>
+              <input
+                type="datetime-local"
+                name="ticketTimeEdit"
+                id="ticketTimeEdit"
+                required
+              /><br />
+              <label>Arena:</label>
+              <input
+                type="text"
+                name="arenaEdit"
+                id="arenaEdit"
+                required
+              /><br />
+              <label>Price:</label>
+              <input
+                type="number"
+                name="ticketPriceEdit"
+                id="ticketPriceEdit"
+                min="1"
+                required
+              /><br />
+              <label>Number of tickets in stock:</label>
+              <input
+                type="number"
+                name="ticketStockEdit"
+                id="ticketStockEdit"
+                min="0"
+                required
+              /><br />
+              <input type="hidden" name="additembut" value="1" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              form="editForm"
+              class="btn btn-primary submit"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END OF EDIT MODAL-->
+
+    <!--ADD MODAL-->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="editModalLabel">Add Ticket</h2>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              action="/ticket/addticket"
+              method="POST"
+              id="addFormT"
+              autocomplete="off"
+            >
+              <label>Opposing team name:</label>
+              <input
+                type="text"
+                name="oppTeamAdd"
+                id="oppTeamAdd"
+                required
+              /><br />
+              <label>Time (format should be year/month/day hr:min:sec):</label>
+              <input
+                type="datetime-local"
+                name="ticketTimeAdd"
+                id="ticketTimeAdd"
+                required
+              />
+              <br />
+              <label>Arena:</label>
+              <input type="text" name="arenaAdd" id="arenaAdd" required /><br />
+              <label>Price:</label>
+              <input
+                type="number"
+                name="ticketPriceAdd"
+                id="ticketPriceAdd"
+                min="1"
+                required
+              /><br />
+              <label>Number in stock:</label>
+              <input
+                type="number"
+                name="ticketStockAdd"
+                id="ticketStockAdd"
+                min="0"
+                required
+              /><br />
+              <input type="hidden" name="addticketbut" value="1" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              id="addTicket-button"
+              form="addFormT"
+              class="btn btn-primary submit"
+              type="submit"
+            >
+              Add Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END OF ADD MODAL-->
+
+    <!--DELETE MODAL-->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="editModalLabel">Delete Ticket</h2>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              action="/ticket/deleteTicket"
+              id="deleteT"
+              method="POST"
+              autocomplete="off"
+            >
+              <label>Ticket ID:</label>
+              <select name="ticketidRemove" id="ticketidRemove">
+                {%for ticket in tickets%}
+                <option value="{{ticket[0]}}">{{ticket[0]}}</option>
+                {% endfor %}
+              </select>
+              <input type="hidden" name="removeticketbut" value="1" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              id="removeTicket-button"
+              class="btn btn-primary submit"
+              form="deleteT"
+              type="submit"
+              required
+            >
+              Remove Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END OF DELETE MODAL-->
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
